@@ -394,7 +394,7 @@ function App() {
 
               <div className="space-y-6 text-lg leading-relaxed text-gray-300">
                 <p>
-                  Since 2019, <span className="text-cyan-400 font-semibold">NCA IT Solution</span> has been at the forefront of digital transformation, 
+                  Since 2024, <span className="text-cyan-400 font-semibold">NCA IT Solution</span> has been at the forefront of digital transformation, 
                   crafting innovative software solutions that empower businesses to thrive in the modern digital landscape.
                 </p>
                 
