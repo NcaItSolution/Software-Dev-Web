@@ -18,7 +18,10 @@ import {
   Star,
   Zap,
   Shield,
-  Clock
+  Clock,
+  Target,
+  Lightbulb,
+  Heart
 } from 'lucide-react';
 
 function App() {
@@ -169,7 +172,7 @@ function App() {
             </div>
             
             <div className="hidden md:flex space-x-8">
-              {['Home', 'Services', 'Calculator', 'About', 'Contact'].map((item) => (
+              {['Home', 'Services', 'About', 'Calculator', 'Contact'].map((item) => (
                 <a 
                   key={item}
                   href={`#${item.toLowerCase()}`} 
@@ -194,7 +197,7 @@ function App() {
         {isMenuOpen && (
           <div className="md:hidden bg-gray-900/95 backdrop-blur-xl border-t border-gray-800/50">
             <div className="px-4 py-6 space-y-4">
-              {['Home', 'Services', 'Calculator', 'About', 'Contact'].map((item) => (
+              {['Home', 'Services', 'About', 'Calculator', 'Contact'].map((item) => (
                 <a 
                   key={item}
                   href={`#${item.toLowerCase()}`} 
@@ -343,6 +346,118 @@ function App() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Enhanced About Section */}
+      <section id="about" className="relative z-10 py-24 px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            {/* Left Side - Majestic Image */}
+            <div className="relative group">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 rounded-3xl transform rotate-3 group-hover:rotate-6 transition-transform duration-500"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-3xl transform -rotate-3 group-hover:-rotate-6 transition-transform duration-500"></div>
+              <div className="relative bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-xl border border-gray-700/50 rounded-3xl p-4 group-hover:shadow-2xl group-hover:shadow-cyan-500/20 transition-all duration-500">
+                <img 
+                  src="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop" 
+                  alt="NCA IT Solution Team" 
+                  className="w-full h-[500px] object-cover rounded-2xl group-hover:scale-105 transition-transform duration-700"
+                />
+                
+                {/* Floating Elements */}
+                <div className="absolute -top-6 -right-6 w-20 h-20 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center group-hover:rotate-12 transition-transform duration-500 shadow-xl">
+                  <Code className="w-10 h-10 text-white" />
+                </div>
+                <div className="absolute -bottom-6 -left-6 w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center group-hover:-rotate-12 transition-transform duration-500 shadow-xl">
+                  <Lightbulb className="w-8 h-8 text-white" />
+                </div>
+              </div>
+            </div>
+
+            {/* Right Side - About Content */}
+            <div className="space-y-8">
+              <div>
+                <span className="inline-block px-6 py-3 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 backdrop-blur-sm border border-cyan-500/30 rounded-full text-cyan-400 font-semibold text-sm tracking-wide uppercase mb-6">
+                  About NCA IT Solution
+                </span>
+                <h2 className="text-5xl md:text-6xl font-black mb-8 leading-tight">
+                  <span className="bg-gradient-to-r from-white to-cyan-400 bg-clip-text text-transparent">
+                    Pioneering Digital
+                  </span>
+                  <br />
+                  <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+                    Excellence
+                  </span>
+                </h2>
+              </div>
+
+              <div className="space-y-6 text-lg leading-relaxed text-gray-300">
+                <p>
+                  Since 2019, <span className="text-cyan-400 font-semibold">NCA IT Solution</span> has been at the forefront of digital transformation, 
+                  crafting innovative software solutions that empower businesses to thrive in the modern digital landscape.
+                </p>
+                
+                <p>
+                  Our passionate team of expert developers, designers, and strategists combines cutting-edge technology 
+                  with creative problem-solving to deliver solutions that don't just meet expectations—they exceed them. 
+                  We believe in the power of technology to transform businesses and create lasting impact.
+                </p>
+              </div>
+
+              {/* Core Values */}
+              <div className="grid md:grid-cols-2 gap-6 mt-12">
+                {[
+                  {
+                    icon: <Target className="w-8 h-8" />,
+                    title: 'Mission Driven',
+                    description: 'Empowering businesses through innovative technology solutions that drive real results.',
+                    gradient: 'from-blue-500 to-cyan-500'
+                  },
+                  {
+                    icon: <Lightbulb className="w-8 h-8" />,
+                    title: 'Innovation First',
+                    description: 'Embracing cutting-edge technologies and creative approaches to solve complex challenges.',
+                    gradient: 'from-purple-500 to-pink-500'
+                  },
+                  {
+                    icon: <Heart className="w-8 h-8" />,
+                    title: 'Client Focused',
+                    description: 'Building long-term partnerships based on trust, transparency, and exceptional service.',
+                    gradient: 'from-green-500 to-teal-500'
+                  },
+                  {
+                    icon: <Award className="w-8 h-8" />,
+                    title: 'Excellence Guaranteed',
+                    description: 'Delivering premium quality solutions that exceed industry standards and client expectations.',
+                    gradient: 'from-orange-500 to-red-500'
+                  }
+                ].map((value, index) => (
+                  <div key={index} className="group bg-gradient-to-br from-gray-800/30 to-gray-900/30 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 hover:border-cyan-500/50 transition-all duration-500 hover:shadow-lg hover:shadow-cyan-500/10">
+                    <div className={`inline-flex p-3 rounded-xl bg-gradient-to-r ${value.gradient} text-white mb-4 group-hover:scale-110 transition-transform duration-300`}>
+                      {value.icon}
+                    </div>
+                    <h3 className="text-xl font-bold mb-3 group-hover:text-cyan-400 transition-colors duration-300">
+                      {value.title}
+                    </h3>
+                    <p className="text-gray-400 leading-relaxed">
+                      {value.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              {/* CTA Button */}
+              <div className="pt-8">
+                <button className="group relative px-10 py-5 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-2xl font-bold text-lg transition-all duration-500 transform hover:scale-105 hover:shadow-2xl hover:shadow-cyan-500/25 overflow-hidden">
+                  <span className="relative z-10 flex items-center justify-center">
+                    Let's Build Something Amazing
+                    <ArrowRight className="w-6 h-6 ml-3 group-hover:translate-x-2 transition-transform duration-300" />
+                  </span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </section>
