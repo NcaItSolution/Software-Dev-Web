@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import CostCalculator from './components/CostCalculator';
-import { 
-  Menu, 
-  X, 
-  Code, 
-  Smartphone, 
-  Globe, 
-  Database, 
-  Users, 
-  Award, 
-  TrendingUp, 
-  Mail, 
-  Phone, 
+import emailjs from "emailjs-com";
+import {
+  Menu,
+  X,
+  Code,
+  Smartphone,
+  Globe,
+  Database,
+  Users,
+  Award,
+  TrendingUp,
+  Mail,
+  Phone,
   MapPin,
   ArrowRight,
   CheckCircle,
@@ -24,20 +25,61 @@ import {
   Heart
 } from 'lucide-react';
 
+emailjs.init("aulivm-QzwvgreNVF");
+
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrollY, setScrollY] = useState(0);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+  const [status, setStatus] = useState("");
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setStatus("Sending...");
+
+    emailjs
+      .send(
+        "service_tt9iawb",     // replace with EmailJS service ID
+        "template_jfkjhsb",    // replace with EmailJS template ID
+         {
+    from_name: formData.name,
+    from_email: formData.email,
+    subject: formData.subject,
+    message: formData.message,
+  },     // replace with EmailJS public key
+      )
+      .then(
+        (result) => {
+          setStatus("✅ Message sent successfully!");
+          setFormData({ name: "", email: "", subject: "", message: "" });
+        },
+        (error) => {
+          console.error(error);
+          setStatus("❌ Failed to send. Try again.");
+        }
+      );
+  };
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
-    
+
     window.addEventListener('scroll', handleScroll);
     window.addEventListener('mousemove', handleMouseMove);
-    
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('mousemove', handleMouseMove);
@@ -130,7 +172,7 @@ function App() {
   return (
     <div className="min-h-screen bg-gray-900 text-white overflow-x-hidden">
       {/* Cursor Follower */}
-      <div 
+      <div
         className="fixed w-6 h-6 bg-cyan-400/30 rounded-full pointer-events-none z-50 transition-all duration-300 ease-out"
         style={{
           left: mousePosition.x - 12,
@@ -142,7 +184,7 @@ function App() {
       {/* Enhanced Animated Background */}
       <div className="fixed inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-blue-900/20 to-purple-900/20"></div>
-        
+
         {/* Animated Mesh Gradient */}
         <div className="absolute inset-0 opacity-30">
           <div className="absolute top-0 -left-4 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl animate-blob"></div>
@@ -170,12 +212,12 @@ function App() {
             <div className="text-3xl font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent animate-gradient-x">
               NCA IT SOLUTION
             </div>
-            
+
             <div className="hidden md:flex space-x-8">
               {['Home', 'Services', 'About', 'Calculator', 'Contact'].map((item) => (
-                <a 
+                <a
                   key={item}
-                  href={`#${item.toLowerCase()}`} 
+                  href={`#${item.toLowerCase()}`}
                   className="relative px-4 py-2 text-gray-300 hover:text-white transition-all duration-300 group"
                 >
                   {item}
@@ -184,7 +226,7 @@ function App() {
               ))}
             </div>
 
-            <button 
+            <button
               className="md:hidden p-2 rounded-lg bg-gray-800/50 backdrop-blur-sm border border-gray-700 hover:border-cyan-500 transition-all duration-300"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
@@ -198,9 +240,9 @@ function App() {
           <div className="md:hidden bg-gray-900/95 backdrop-blur-xl border-t border-gray-800/50">
             <div className="px-4 py-6 space-y-4">
               {['Home', 'Services', 'About', 'Calculator', 'Contact'].map((item) => (
-                <a 
+                <a
                   key={item}
-                  href={`#${item.toLowerCase()}`} 
+                  href={`#${item.toLowerCase()}`}
                   className="block px-4 py-3 rounded-lg hover:bg-gray-800/50 hover:text-cyan-400 transition-all duration-300"
                   onClick={() => setIsMenuOpen(false)}
                 >
@@ -220,8 +262,8 @@ function App() {
               ✨ Premium Software Solutions
             </span>
           </div>
-          
-          <h1 
+
+          <h1
             className="text-6xl md:text-8xl font-black mb-8 leading-tight animate-fade-in-up"
             style={{ transform: `translateY(${scrollY * 0.1}px)` }}
           >
@@ -233,14 +275,14 @@ function App() {
               Your Vision
             </span>
           </h1>
-          
-          <p 
+
+          <p
             className="text-xl md:text-2xl mb-12 text-gray-300 max-w-3xl mx-auto leading-relaxed animate-fade-in-up animation-delay-300"
             style={{ transform: `translateY(${scrollY * 0.05}px)` }}
           >
             We craft exceptional digital experiences that drive innovation, accelerate growth, and transform businesses into industry leaders.
           </p>
-          
+
           <div className="flex flex-col sm:flex-row gap-6 justify-center animate-fade-in-up animation-delay-600">
             <button className="group relative px-10 py-5 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-2xl font-bold text-lg transition-all duration-500 transform hover:scale-105 hover:shadow-2xl hover:shadow-cyan-500/25 overflow-hidden">
               <span className="relative z-10 flex items-center justify-center">
@@ -249,7 +291,7 @@ function App() {
               </span>
               <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             </button>
-            
+
             <button className="group px-10 py-5 border-2 border-gray-600 hover:border-cyan-500 rounded-2xl font-bold text-lg transition-all duration-500 transform hover:scale-105 hover:bg-cyan-500/10 backdrop-blur-sm">
               <span className="flex items-center justify-center">
                 View Our Work
@@ -314,27 +356,27 @@ function App() {
 
           <div className="grid md:grid-cols-2 gap-8">
             {services.map((service, index) => (
-              <div 
+              <div
                 key={index}
                 className="group relative bg-gradient-to-br from-gray-800/30 to-gray-900/30 backdrop-blur-xl border border-gray-700/50 rounded-3xl p-10 hover:border-transparent transition-all duration-700 transform hover:scale-105 hover:shadow-2xl overflow-hidden"
               >
                 {/* Gradient Border Effect */}
                 <div className={`absolute inset-0 bg-gradient-to-r ${service.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-3xl`}></div>
                 <div className="absolute inset-[1px] bg-gradient-to-br from-gray-800/90 to-gray-900/90 rounded-3xl"></div>
-                
+
                 <div className="relative z-10">
                   <div className={`inline-flex p-4 rounded-2xl bg-gradient-to-r ${service.gradient} text-white mb-6 group-hover:scale-110 transition-transform duration-500`}>
                     {service.icon}
                   </div>
-                  
+
                   <h3 className="text-2xl font-bold mb-4 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-cyan-400 group-hover:bg-clip-text transition-all duration-500">
                     {service.title}
                   </h3>
-                  
+
                   <p className="text-gray-400 mb-8 leading-relaxed text-lg">
                     {service.description}
                   </p>
-                  
+
                   <div className="grid grid-cols-2 gap-3">
                     {service.features.map((feature, featureIndex) => (
                       <div key={featureIndex} className="flex items-center group/feature">
@@ -359,12 +401,12 @@ function App() {
               <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 rounded-3xl transform rotate-3 group-hover:rotate-6 transition-transform duration-500"></div>
               <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-3xl transform -rotate-3 group-hover:-rotate-6 transition-transform duration-500"></div>
               <div className="relative bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-xl border border-gray-700/50 rounded-3xl p-4 group-hover:shadow-2xl group-hover:shadow-cyan-500/20 transition-all duration-500">
-                <img 
-                  src="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop" 
-                  alt="NCA IT Solution Team" 
+                <img
+                  src="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop"
+                  alt="NCA IT Solution Team"
                   className="w-full h-[500px] object-cover rounded-2xl group-hover:scale-105 transition-transform duration-700"
                 />
-                
+
                 {/* Floating Elements */}
                 <div className="absolute -top-6 -right-6 w-20 h-20 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center group-hover:rotate-12 transition-transform duration-500 shadow-xl">
                   <Code className="w-10 h-10 text-white" />
@@ -394,13 +436,13 @@ function App() {
 
               <div className="space-y-6 text-lg leading-relaxed text-gray-300">
                 <p>
-                  Since 2019, <span className="text-cyan-400 font-semibold">NCA IT Solution</span> has been at the forefront of digital transformation, 
+                  Since 2019, <span className="text-cyan-400 font-semibold">NCA IT Solution</span> has been at the forefront of digital transformation,
                   crafting innovative software solutions that empower businesses to thrive in the modern digital landscape.
                 </p>
-                
+
                 <p>
-                  Our passionate team of expert developers, designers, and strategists combines cutting-edge technology 
-                  with creative problem-solving to deliver solutions that don't just meet expectations—they exceed them. 
+                  Our passionate team of expert developers, designers, and strategists combines cutting-edge technology
+                  with creative problem-solving to deliver solutions that don't just meet expectations—they exceed them.
                   We believe in the power of technology to transform businesses and create lasting impact.
                 </p>
               </div>
@@ -479,7 +521,7 @@ function App() {
 
           <div className="grid md:grid-cols-3 gap-8">
             {testimonials.map((testimonial, index) => (
-              <div 
+              <div
                 key={index}
                 className="group bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-xl border border-gray-700/50 rounded-3xl p-8 hover:border-cyan-500/50 transition-all duration-500 transform hover:scale-105 hover:shadow-2xl hover:shadow-cyan-500/10"
               >
@@ -488,14 +530,14 @@ function App() {
                     <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
                   ))}
                 </div>
-                
+
                 <p className="text-gray-300 mb-6 leading-relaxed italic">
                   "{testimonial.content}"
                 </p>
-                
+
                 <div className="flex items-center">
-                  <img 
-                    src={testimonial.avatar} 
+                  <img
+                    src={testimonial.avatar}
                     alt={testimonial.name}
                     className="w-12 h-12 rounded-full mr-4 border-2 border-cyan-500/50"
                   />
@@ -513,6 +555,7 @@ function App() {
       {/* Enhanced Contact Section */}
       <section id="contact" className="relative z-10 py-24 px-4">
         <div className="max-w-7xl mx-auto">
+          {/* Heading */}
           <div className="text-center mb-20">
             <span className="inline-block px-6 py-3 bg-gradient-to-r from-orange-500/20 to-red-500/20 backdrop-blur-sm border border-orange-500/30 rounded-full text-orange-400 font-semibold text-sm tracking-wide uppercase mb-6">
               Let's Connect
@@ -521,22 +564,42 @@ function App() {
               Start Your Journey
             </h2>
             <p className="text-xl text-gray-400 max-w-3xl mx-auto leading-relaxed">
-              Ready to transform your ideas into reality? Let's discuss how we can elevate your business to new heights.
+              Ready to transform your ideas into reality? Let's discuss how we can
+              elevate your business to new heights.
             </p>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-16">
+            {/* Contact Info */}
             <div className="space-y-8">
               {[
-                { icon: <Mail className="w-7 h-7" />, title: 'Email Us', info: 'hello@ncaitsolution.com', gradient: 'from-blue-500 to-cyan-500' },
-                { icon: <Phone className="w-7 h-7" />, title: 'Call Us', info: '+1 (555) 123-4567', gradient: 'from-green-500 to-teal-500' },
-                { icon: <MapPin className="w-7 h-7" />, title: 'Visit Us', info: '123 Innovation Drive, Tech City', gradient: 'from-purple-500 to-pink-500' }
+                {
+                  icon: <Mail className="w-7 h-7" />,
+                  title: "Email Us",
+                  info: "ncaitsolution@gmail.com",
+                  gradient: "from-blue-500 to-cyan-500",
+                },
+                {
+                  icon: <Phone className="w-7 h-7" />,
+                  title: "Call Us",
+                  info: "+91 8287584509",
+                  gradient: "from-green-500 to-teal-500",
+                },
+                {
+                  icon: <MapPin className="w-7 h-7" />,
+                  title: "Visit Us",
+                  info: "705 A, Iconic Corenthum Tower",
+                  gradient: "from-purple-500 to-pink-500",
+                },
               ].map((contact, index) => (
-                <div key={index} className="group flex items-center cursor-pointer">
-                  <div className={`p-5 rounded-2xl bg-gradient-to-r ${contact.gradient} mr-6 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
-                    <div className="text-white">
-                      {contact.icon}
-                    </div>
+                <div
+                  key={index}
+                  className="group flex items-center cursor-pointer"
+                >
+                  <div
+                    className={`p-5 rounded-2xl bg-gradient-to-r ${contact.gradient} mr-6 group-hover:scale-110 transition-transform duration-300 shadow-lg`}
+                  >
+                    <div className="text-white">{contact.icon}</div>
                   </div>
                   <div>
                     <h3 className="text-2xl font-bold mb-2 group-hover:text-cyan-400 transition-colors duration-300">
@@ -548,36 +611,65 @@ function App() {
               ))}
             </div>
 
-            <form className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-xl border border-gray-700/50 rounded-3xl p-10">
+            {/* Contact Form (wired to EmailJS) */}
+            <form
+              onSubmit={handleSubmit}
+              className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-xl border border-gray-700/50 rounded-3xl p-10"
+            >
               <div className="space-y-6">
-                {[
-                  { type: 'text', placeholder: 'Your Name', id: 'name' },
-                  { type: 'email', placeholder: 'Your Email', id: 'email' },
-                  { type: 'text', placeholder: 'Subject', id: 'subject' }
-                ].map((field) => (
-                  <div key={field.id} className="group">
-                    <input 
-                      type={field.type}
-                      placeholder={field.placeholder}
-                      className="w-full bg-gray-700/30 border border-gray-600/50 rounded-xl px-6 py-4 text-lg focus:outline-none focus:border-cyan-500 focus:bg-gray-700/50 transition-all duration-300 group-hover:border-gray-500"
-                    />
-                  </div>
-                ))}
-                
                 <div className="group">
-                  <textarea 
-                    rows={6} 
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="Your Name"
+                    required
+                    className="w-full bg-gray-700/30 border border-gray-600/50 rounded-xl px-6 py-4 text-lg focus:outline-none focus:border-cyan-500 focus:bg-gray-700/50 transition-all duration-300 group-hover:border-gray-500"
+                  />
+                </div>
+
+                <div className="group">
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="Your Email"
+                    required
+                    className="w-full bg-gray-700/30 border border-gray-600/50 rounded-xl px-6 py-4 text-lg focus:outline-none focus:border-cyan-500 focus:bg-gray-700/50 transition-all duration-300 group-hover:border-gray-500"
+                  />
+                </div>
+
+                <div className="group">
+                  <input
+                    type="text"
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleChange}
+                    placeholder="Subject"
+                    className="w-full bg-gray-700/30 border border-gray-600/50 rounded-xl px-6 py-4 text-lg focus:outline-none focus:border-cyan-500 focus:bg-gray-700/50 transition-all duration-300 group-hover:border-gray-500"
+                  />
+                </div>
+
+                <div className="group">
+                  <textarea
+                    rows={6}
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
                     placeholder="Tell us about your project..."
+                    required
                     className="w-full bg-gray-700/30 border border-gray-600/50 rounded-xl px-6 py-4 text-lg focus:outline-none focus:border-cyan-500 focus:bg-gray-700/50 transition-all duration-300 resize-none group-hover:border-gray-500"
                   ></textarea>
                 </div>
-                
-                <button 
+
+                <button
                   type="submit"
                   className="w-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 px-8 py-5 rounded-xl font-bold text-lg transition-all duration-500 transform hover:scale-105 hover:shadow-2xl hover:shadow-cyan-500/25 group"
                 >
                   <span className="flex items-center justify-center">
-                    Send Message
+                    {status || "Send Message"}
                     <ArrowRight className="w-6 h-6 ml-3 group-hover:translate-x-2 transition-transform duration-300" />
                   </span>
                 </button>
@@ -586,6 +678,7 @@ function App() {
           </div>
         </div>
       </section>
+
 
       {/* Enhanced Footer */}
       <footer className="relative z-10 bg-gray-900/90 backdrop-blur-xl border-t border-gray-800/50 py-16 px-4">
@@ -597,12 +690,12 @@ function App() {
             <p className="text-gray-400 text-lg mb-8 max-w-2xl mx-auto">
               Transforming businesses through innovative technology solutions since 2019. Your success is our mission.
             </p>
-            
+
             <div className="flex justify-center space-x-6 mb-8">
               {['LinkedIn', 'Twitter', 'GitHub', 'Dribbble'].map((social) => (
-                <a 
+                <a
                   key={social}
-                  href="#" 
+                  href="#"
                   className="w-12 h-12 bg-gray-800/50 hover:bg-gradient-to-r hover:from-blue-600 hover:to-cyan-600 rounded-xl flex items-center justify-center transition-all duration-300 transform hover:scale-110 hover:shadow-lg"
                 >
                   <span className="text-sm font-semibold">{social[0]}</span>
@@ -610,7 +703,7 @@ function App() {
               ))}
             </div>
           </div>
-          
+
           <div className="border-t border-gray-800/50 pt-8 text-center">
             <p className="text-gray-500">
               © 2024 NCA IT SOLUTION. All rights reserved. | Crafted with ❤️ for innovation
