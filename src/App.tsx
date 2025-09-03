@@ -52,12 +52,12 @@ function App() {
       .send(
         "service_tt9iawb",     // replace with EmailJS service ID
         "template_jfkjhsb",    // replace with EmailJS template ID
-         {
-    from_name: formData.name,
-    from_email: formData.email,
-    subject: formData.subject,
-    message: formData.message,
-  },     // replace with EmailJS public key
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        },     // replace with EmailJS public key
       )
       .then(
         (result) => {
@@ -214,7 +214,7 @@ function App() {
             </div>
 
             <div className="hidden md:flex space-x-8">
-              {['Home', 'Services', 'About', 'Calculator', 'Contact'].map((item) => (
+              {['Home', 'Services', 'About','Catalog', 'Calculator', 'Contact'].map((item) => (
                 <a
                   key={item}
                   href={`#${item.toLowerCase()}`}
@@ -239,7 +239,7 @@ function App() {
         {isMenuOpen && (
           <div className="md:hidden bg-gray-900/95 backdrop-blur-xl border-t border-gray-800/50">
             <div className="px-4 py-6 space-y-4">
-              {['Home', 'Services', 'About', 'Calculator', 'Contact'].map((item) => (
+              {['Home', 'Services', 'About','Catalog', 'Calculator', 'Contact'].map((item) => (
                 <a
                   key={item}
                   href={`#${item.toLowerCase()}`}
@@ -503,6 +503,100 @@ function App() {
           </div>
         </div>
       </section>
+
+      {/* ✅ Catalog Section (Styled like About Section) */}
+      <section id="catalog" className="relative z-10 py-24 px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <span className="inline-block px-6 py-3 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 backdrop-blur-sm border border-cyan-500/30 rounded-full text-cyan-400 font-semibold text-sm tracking-wide uppercase mb-6">
+              Our Catalog
+            </span>
+            <h2 className="text-5xl md:text-6xl font-black mb-8 leading-tight">
+              <span className="bg-gradient-to-r from-white to-cyan-400 bg-clip-text text-transparent">
+                Explore Our
+              </span>
+              <br />
+              <span className="bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+                Products
+              </span>
+            </h2>
+          </div>
+
+          {/* Grid of Catalog Items */}
+          <div className="grid md:grid-cols-3 gap-12">
+            {[
+              {
+                title: "Restaurant Website",
+                desc: "A simple, responsive website for startups and small businesses.",
+                img: "https://s.tmimgcdn.com/scr/800x500/255800/restfood-restaurant-one-page-html5-website-template_255812-original.png",
+                link: "https://nca-restaurant.vercel.app/",
+                gradient: "from-blue-500 to-cyan-500"
+              },
+              {
+                title: "E-Commerce Store",
+                desc: "A full-featured online store with payment gateway integration.",
+                img: "https://colorlib.com/wp/wp-content/uploads/sites/2/capitalshop-free-template.jpg",
+                link: "https://nca-ecom.vercel.app/",
+                gradient: "from-purple-500 to-pink-500"
+              },
+              {
+                title: "Custom Web App",
+                desc: "Tailored solutions for businesses needing advanced functionality.",
+                img: "https://vdeltagoods.wordpress.com/wp-content/uploads/2016/03/custom-website-design.jpg",
+                link: "https://nca-it-solution-web.vercel.app/",
+                gradient: "from-green-500 to-teal-500"
+              }
+            ].map((item, index) => (
+              <div
+                key={index}
+                className="group relative bg-gradient-to-br from-gray-800/30 to-gray-900/30 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 hover:border-cyan-500/50 transition-all duration-500 hover:shadow-lg hover:shadow-cyan-500/10"
+              >
+                {/* Image */}
+                <div className="overflow-hidden rounded-xl mb-6">
+                  <img
+                    src={item.img}
+                    alt={item.title}
+                    className="w-full h-56 object-cover rounded-xl transform group-hover:scale-105 transition-transform duration-700"
+                  />
+                </div>
+
+                {/* Icon/Gradient Badge */}
+                <div
+                  className={`inline-flex p-3 rounded-xl bg-gradient-to-r ${item.gradient} text-white mb-4 group-hover:scale-110 transition-transform duration-300`}
+                >
+                  <ArrowRight className="w-6 h-6" />
+                </div>
+
+                {/* Title */}
+                <h3 className="text-2xl font-bold mb-3 group-hover:text-cyan-400 transition-colors duration-300">
+                  {item.title}
+                </h3>
+
+                {/* Description */}
+                <p className="text-gray-400 leading-relaxed mb-6">{item.desc}</p>
+
+                {/* Button */}
+                <a
+                  href={item.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-xl font-semibold text-sm transition-all duration-500 hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/25 overflow-hidden inline-block"
+                >
+                  <span className="relative z-10 flex items-center justify-center">
+                    Visit Site
+                    <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-2 transition-transform duration-300" />
+                  </span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                </a>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+
+
+
 
       {/* Cost Calculator Section */}
       <CostCalculator />
