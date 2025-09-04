@@ -25,6 +25,8 @@ import {
   Heart
 } from 'lucide-react';
 
+import Logo from './img/logoN.png'
+
 emailjs.init("aulivm-QzwvgreNVF");
 
 function App() {
@@ -206,55 +208,64 @@ function App() {
       </div>
 
       {/* Enhanced Navigation */}
-     <nav className="fixed top-0 left-0 z-50 w-full bg-gray-900/80 backdrop-blur-xl border-b border-gray-800/50 shadow-2xl">
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div className="flex justify-between items-center py-6">
-      <div className="text-3xl font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent animate-gradient-x">
-        NCA IT SOLUTION
-      </div>
+      <nav className="fixed top-0 left-0 z-50 w-full bg-gray-900/80 backdrop-blur-xl border-b border-gray-800/50 shadow-2xl">
+        <div className="max-w-7xl mx-auto px-0   sm:px-6 lg:px-0">
+          <div className="flex justify-between items-center py-0">
+            {/* Logo + Header Name */}
+            <div className="flex items-center space-x-3">
+              <img
+                src={Logo} // 🔹 replace with your logo path
+                alt="NCA IT Solution Logo"
+                className="w-16 h-18 rounded-lg shadow-md"
+              />
+              <div className="text-3xl font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent animate-gradient-x">
+                NCA IT SOLUTION
+              </div>
+            </div>
 
-      {/* Desktop Menu */}
-      <div className="hidden md:flex space-x-8">
-        {['Home', 'Services', 'About', 'Catalog', 'Calculator', 'Contact'].map((item) => (
-          <a
-            key={item}
-            href={`#${item.toLowerCase()}`}
-            className="relative px-4 py-2 text-gray-300 hover:text-white transition-all duration-300 group"
-          >
-            {item}
-            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-blue-500 group-hover:w-full transition-all duration-300"></span>
-          </a>
-        ))}
-      </div>
+            {/* Desktop Menu */}
+            <div className="hidden md:flex space-x-8">
+              {['Home', 'Services', 'About', 'Catalog', 'Calculator', 'Contact'].map((item) => (
+                <a
+                  key={item}
+                  href={`#${item.toLowerCase()}`}
+                  className="relative px-4 py-2 text-gray-300 hover:text-white transition-all duration-300 group"
+                >
+                  {item}
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-cyan-400 to-blue-500 group-hover:w-full transition-all duration-300"></span>
+                </a>
+              ))}
+            </div>
 
-      {/* Mobile Menu Button */}
-      <button
-        className="md:hidden p-2 rounded-lg bg-gray-800/50 backdrop-blur-sm border border-gray-700 hover:border-cyan-500 transition-all duration-300"
-        onClick={() => setIsMenuOpen(!isMenuOpen)}
-      >
-        {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-      </button>
-    </div>
-  </div>
+            {/* Mobile Menu Button */}
+            <button
+              className="md:hidden p-2 rounded-lg bg-gray-800/50 backdrop-blur-sm border border-gray-700 hover:border-cyan-500 transition-all duration-300"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
+        </div>
 
-  {/* Mobile Menu */}
-  {isMenuOpen && (
-    <div className="md:hidden bg-gray-900/95 backdrop-blur-xl border-t border-gray-800/50">
-      <div className="px-4 py-6 space-y-4">
-        {['Home', 'Services', 'About', 'Catalog', 'Calculator', 'Contact'].map((item) => (
-          <a
-            key={item}
-            href={`#${item.toLowerCase()}`}
-            className="block px-4 py-3 rounded-lg hover:bg-gray-800/50 hover:text-cyan-400 transition-all duration-300"
-            onClick={() => setIsMenuOpen(false)}
-          >
-            {item}
-          </a>
-        ))}
-      </div>
-    </div>
-  )}
-</nav>
+        {/* Mobile Menu */}
+        {isMenuOpen && (
+          <div className="md:hidden bg-gray-900/95 backdrop-blur-xl border-t border-gray-800/50">
+            <div className="px-4 py-6 space-y-4">
+              {['Home', 'Services', 'About', 'Catalog', 'Calculator', 'Contact'].map((item) => (
+                <a
+                  key={item}
+                  href={`#${item.toLowerCase()}`}
+                  className="block px-4 py-3 rounded-lg hover:bg-gray-800/50 hover:text-cyan-400 transition-all duration-300"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {item}
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
+      </nav>
+
 
       {/* Enhanced Hero Section */}
       <section id="home" className="relative z-10 min-h-screen flex items-center justify-center px-4">
